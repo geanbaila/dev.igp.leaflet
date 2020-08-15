@@ -27,9 +27,13 @@ IGP , portal , portada" />
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/jquery.dataTables.min.js?v=50361749"></script>
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/dataTables.semanticui.min.js?v=50361749"></script>
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/semanticdatatables.min.js?v=50361749"></script>
+
+
+    
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/sharethis.js?v=50361749"></script>
-    <script type='text/javascript' src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/dependencies/date-uk.js?v=50361749"></script>
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/48ef28da36.js?v=50361749"></script> 
+
+
     <style> 
 .igp-btn{margin-bottom: 10px !important;} .fa-file-pdf{
   color: red;
@@ -190,14 +194,14 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
                   <div class="field">
                     <div class="ui radio">
                       <input name="datasismica" type="radio" value="1">
-                      <label> históricos (1500 - 1959)</label>
+                      <label> Históricos (1500 - 1959)</label>
                     </div>
                   </div>
 
                   <div class="field">
                     <div class="ui radio">
                       <input name="datasismica" type="radio" value="2" checked>
-                      <label> instrumental (1960 - 2017)</label>
+                      <label> Instrumental (1960 - 2017)</label>
 
                     </div>
                   </div>
@@ -231,19 +235,19 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
               <h4>Coordenadas:</h4> 
               <div class="fields">
                   <div class="field">
-                    <label for="latLngb">latitud norte</label>
+                    <label for="latLngb">Latitud norte</label>
                     <input type="text" placeholder="" class="ui large" id="latLngb">
                   </div>
                   <div class="field">
-                    <label for="latLngc">longitudoeste</label>
+                    <label for="latLngc">Longitudoeste</label>
                     <input type="text" placeholder="" id="latLngc">
                   </div>
                   <div class="field">
-                    <label for="latLngc">longitud este </label>
+                    <label for="latLngc">Longitud este </label>
                     <input type="text" placeholder="" id="latLngd">
                   </div>
                   <div class="field">
-                    <label for="latLnga">latitud sur</label>
+                    <label for="latLnga">Latitud sur</label>
                     <input type="text" placeholder="" id="latLnga">
                   </div><br><br>
               </div>
@@ -270,19 +274,20 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
         <div id="mapid"></div>
         <div id="mapLista"></div>
 
-        <table class="ui table celled striped reporte-sismoslogicos-acelerometricos igp-us-sr dataTable no-footer" style="width:100%">
+        <table id="misdatossismicos" class="ui table celled striped reporte-sismoslogicos-acelerometricos igp-us-sr dataTable no-footer" style="width:100%">
+
           <thead>
             <tr>
-              <th>Fecha y hora UTC <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verReferencia" alt=""></th>
-              <th>Latitudº y longitudº <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verReferencia" alt=""></th>
-              <th>Profundidad <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verReferencia" alt=""></th>
-              <th>Magnitud mb <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verReferencia" alt=""></th>
-              <th>Magnitud Ms <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verReferencia" alt=""></th>
-              <th>Magnitud Mw <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verReferencia" alt=""></th>
+              <th>Fecha y hora UTC <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verFechHor" alt=""></th>
+              <th>Latitudº y longitudº <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verLatLong" alt=""></th>
+              <th>Profundidad <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verProfundidad" alt=""></th>
+              <th>Magnitud mb <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verMagnitud" alt=""></th>
+              <th>Magnitud Ms <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verMagnitud" alt=""></th>
+              <th>Magnitud Mw <img src="https://ultimosismo.igp.gob.pe/img/btn_help.png" class="img-help verMagnitud" alt=""></th>
             </tr>
           </thead>
           <tbody class="datos-sismicos">
-            <tr align="center"><td colspan="8"><i>Aún no has realizado una consulta</i></td></tr>
+            <!--<tr align="center"><td colspan="8"><i>Aún no has realizado una consulta</i></td></tr>-->
           </tbody>
         </table>
       </div>
@@ -362,187 +367,263 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
       $('.menu .item').tab();
   </script>
   <script>
-    $(document)
-    .ready(function() {
-      $('.ui.menu a.item')
-        .on('click', function() {
-          $(this)
-            .addClass('active')
-            .siblings()
-            .removeClass('active')
-          ;
-        })
-      ;
-    });
-  $('.ui.checkbox').checkbox();
-  $('.ui.dropdown').dropdown();
-    var attribution = '&copy; <a href="//openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-    var WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
-    {attribution : attribution});
-    var RoadsAndLabels = L.tileLayer('https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {attribution : attribution});
-    var map = new L.Map('mapid', {
-        minZoom: 3,
-        maxZoom: 17,
-        center: [-10.0, -75.2],
-        zoom: 4,
-        scrollWheelZoom: false,
-        layers: [WorldImagery,RoadsAndLabels],
-    });
+    $(document).ready(function() {
 
-    var greenIcon = L.icon({
-        iconUrl: 'green.png',
-        shadowUrl: 'green.png',
-        iconSize:     [16, 16],
-        shadowSize:   [16, 16],
-        iconAnchor:   [16, 16],
-        shadowAnchor: [16, 16]
-    });
-    var redIcon = L.icon({
-        iconUrl: 'red.png',
-        shadowUrl: 'red.png',
-        iconSize:     [16, 16],
-        shadowSize:   [16, 16],
-        iconAnchor:   [16, 16],
-        shadowAnchor: [16, 16]
-    });
-    var blueIcon = L.icon({
-        iconUrl: 'blue.png',
-        shadowUrl: 'blue.png',
-        iconSize:     [16, 16],
-        shadowSize:   [16, 16],
-        iconAnchor:   [16, 16],
-        shadowAnchor: [16, 16]
-    });
-  
-    var drawnItems = L.featureGroup();
-    map.addLayer(drawnItems);
+      // POPUPS -----------------------------------------------------------------------
+        /*Popup's*/
 
-    var options = {        
-        draw: {
-            rectangle: false,
-            /*{
-                allowIntersection: false,
-                showArea: true,
-                shapeOptions: {
-                  color: '#662d91',
-                  clickable: false
-                }
-            },*/
-            circlemarker:false,
-            marker:false,
-            polyline:false,
-            polygon:false,
-            circle:false
-        },
-        edit: false/*{
-            featureGroup: drawnItems,
-            remove: false
-        }*/
-    };
-    var drawControl = new L.Control.Draw(options);
-    map.addControl(drawControl);
+        $('.verFechHor').popup({
+            popup: '.special.popup.puFecHor'
+        });
 
-     
+        $('.verLatLong').popup({
+            popup: '.special.popup.puLatLong'
+        });
+
+        $('.verMagnitud').popup({
+        inline: true,
+        title: 'Magnitud',
+        content : 'Valor que indica la cantidad de energía liberada por el sismo. Para sismos con magnitud menor o igual a 6.5 se considera la escala de Magnitud Local (ML), también conocida como escala de Richter. Para sismos con magnitudes mayores, se considera la escala de magnitud momento (Mw).'
+        });
+
+        $('.verProfundidad').popup({
+        inline: true,
+        title: 'Profundidad',
+        content : 'Define la profundidad por debajo de la superficie de la Tierra en la cual se encuentra el foco sísmico o inicio de la ruptura. Valor expresado en kilómetros.'
+        });
+
+
 
  
-    L.control.layers({
-        "Satélite": WorldImagery
-    }, { 'mostrar área': drawnItems }, { position: 'topleft', collapsed: true }).addTo(map);
-    
-    var bounds = [[-3.581, -82.382],[-16.701, -68.624]];
-    var rectangle = new L.Rectangle(bounds,{
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5}); 
-    map.addLayer(rectangle);
-    rectangle.editing.enable();
-    showLatLngs(rectangle.getLatLngs());
+    var table = $('#misdatossismicos').DataTable({
 
-    rectangle.on('edit', function (event) {
-      var latlng = event.target.getLatLngs();
-      showLatLngs(latlng);
-    });
- 
-    var a = new L.marker([-3,-79], {icon: greenIcon});
-    map.addLayer(a); //.bindPopup("");  
-
-    $("#btndatasismica").click(function(){
-       
-      /*
-          var a = $("#latLnga").val();
-          var b = $("#latLngb").val();
-          var c = $("#latLngc").val();
-          var d = $("#latLngd").val();
-          a = a.substring(0,4+a.indexOf("."));
-          b = b.substring(0,4+b.indexOf("."));
-          c = c.substring(0,4+c.indexOf("."));
-          d = d.substring(0,4+d.indexOf("."));
-          rectangle.setLatLngs(
-            [[a, c],[b, c],[b, d],[a, d]]
-          );
-          
-          $("#latLnga").val(a);
-          $("#latLngb").val(b);
-          $("#latLngc").val(c);
-          $("#latLngd").val(d);
-
-          var e = $("input[name='datasismica']:checked").val();
-          var result;
-          var magnitud = $("#cbmagnitud").val();
-          magnitud = (magnitud!="")?parseInt(magnitud):0;
-          var profundidad = $("#txtprofundidad").val();
-          profundidad = (profundidad!="")?parseInt(profundidad):0;
-
- 
-
-
-          $.ajax({
-            url:'datos-sismicos/'+a+'/'+b+'/'+c+'/'+d+'/'+e+'/'+magnitud+'/'+profundidad,
-            type:'POST',
-            dataType:'JSON',
-            beforeSend:function(){
-              $(".datos-sismicos").html("<tr align='center'><td colspan='6'><i>Buscando, por favor espere..</i></td></tr>");
+          "responsive": "true",
+          "pagingType": "simple",  
+          "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_",
+            "sZeroRecords": "No se encontraron reportes sismicos para el mes seleccionado.",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Registros del _START_ al _END_ de un total de _TOTAL_ ",
+            "sInfoEmpty": "Registros del 0 al 0 de un total de 0 ",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+              "sFirst": "Primero",
+              "sLast": "Último",
+              "sNext": "Siguiente",
+              "sPrevious": "Anterior"
             },
-            success:function(resultado){
-              result = resultado;
-            },complete:function(){
-              var datos ="";
-              var n=result.prg_sismos.length;
-              if(n>0){
-                var markers = L.markerClusterGroup();
-                markers.clearLayers();
-
-                var html;
-                $(".datos-sismicos").html("");
-                $.each(result.prg_sismos,function(i,row){
-                  datos="mb:"+row.magnitud_mb+", mw:"+row.magnitud_mw+", ms:"+row.magnitud_ms+", prof:"+row.profundidad+"km, lat:"+row.latitud+", long:"+row.longitud;
-                  if(row.profundidad<60){
-                    L.marker([row.latitud, row.longitud], {icon: redIcon}).addTo(map).bindPopup(datos);  
-                  }else if(row.profundidad>60 && row.profundidad<=350 ){
-                    L.marker([row.latitud, row.longitud], {icon: greenIcon}).addTo(map).bindPopup(datos);  
-                  }else{
-                    L.marker([row.latitud, row.longitud], {icon: blueIcon}).addTo(map).bindPopup(datos);  
-                  }
-                  
-                  html ="";
-                  html+= "<tr>";
-                  html+= "<td>" + row.fecha + " " + row.hora + "</td>";
-                  html+= "<td>" + row.latitud + ", " + row.longitud + "</td>";
-                  html+= "<td>" + row.profundidad + "</td>";
-                  html+= "<td>" + row.magnitud_mb + "</td>";
-                  html+= "<td>" + row.magnitud_ms + "</td>";
-                  html+= "<td>" + row.magnitud_mw + "</td>";
-                  html+= "</tr>";
-                  $(".datos-sismicos").append(html);
-                })
-              }else{
-                $(".datos-sismicos").html("<tr align='center'><td colspan='6'><i>No se encontraron datos.</i></td></tr>");
-              }
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
           }
-          });*/
+      });
 
-    });
 
+      $('.ui.menu a.item').on('click', function() {
+          $(this).addClass('active').siblings().removeClass('active');
+      });
+      $('.ui.checkbox').checkbox();
+      $('.ui.dropdown').dropdown();
+      var attribution = '&copy; <a href="//openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+      var WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', 
+      {attribution : attribution});
+      var RoadsAndLabels = L.tileLayer('https://services.arcgisonline.com/arcgis/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {attribution : attribution});
+      var map = new L.Map('mapid', {
+          minZoom: 3,
+          maxZoom: 17,
+          center: [-10.0, -75.2],
+          zoom: 4,
+          scrollWheelZoom: false,
+          layers: [WorldImagery,RoadsAndLabels],
+      });
+
+      var greenIcon = L.icon({
+          iconUrl: 'img/green.png',
+          shadowUrl: 'img/green.png',
+          iconSize:     [3, 3],
+          shadowSize:   [3, 3],
+          iconAnchor:   [3, 3],
+          shadowAnchor: [3, 3]
+      });
+      var redIcon = L.icon({
+          iconUrl: 'img/red.png',
+          shadowUrl: 'img/red.png',
+          iconSize:     [3, 3],
+          shadowSize:   [3, 3],
+          iconAnchor:   [3, 3],
+          shadowAnchor: [3, 3]
+      });
+      var blueIcon = L.icon({
+          iconUrl: 'img/blue.png',
+          shadowUrl: 'img/blue.png',
+          iconSize:     [3, 3],
+          shadowSize:   [3, 3],
+          iconAnchor:   [3, 3],
+          shadowAnchor: [3, 3]
+      });
+  
+      var drawnItems = L.featureGroup();
+      map.addLayer(drawnItems);
+
+      var options = {        
+          draw: {
+              rectangle: false,
+              /*{
+                  allowIntersection: false,
+                  showArea: true,
+                  shapeOptions: {
+                    color: '#662d91',
+                    clickable: false
+                  }
+              },*/
+              circlemarker:false,
+              marker:false,
+              polyline:false,
+              polygon:false,
+              circle:false
+          },
+          edit: false/*{
+              featureGroup: drawnItems,
+              remove: false
+          }*/
+      };
+      var drawControl = new L.Control.Draw(options);
+      map.addControl(drawControl); 
+
+      L.control.layers({
+          "Satélite": WorldImagery
+      }, { 'mostrar área': drawnItems }, { position: 'topleft', collapsed: true }).addTo(map);
+      
+      var bounds = [[-3.581, -82.382],[-16.701, -68.624]];
+      var rectangle = new L.Rectangle(bounds,{
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5}); 
+      map.addLayer(rectangle);
+      rectangle.editing.enable();
+      showLatLngs(rectangle.getLatLngs());
+
+      rectangle.on('edit', function (event) {
+        var latlng = event.target.getLatLngs();
+        showLatLngs(latlng);
+      });
+
+      /*Legend specific*/
+      var legend = L.control({ position: "bottomleft" });
+
+      legend.onAdd = function(map) {
+        var div = L.DomUtil.create("div", "legend");
+        div.innerHTML += "<h4 style='color:#ffffff'>Sismos por profundidad:</h4>";
+        div.innerHTML += '<span style="color:#ffffff"><img width="8" src="img/green.png"> Menos de 61 km de profundidad</span><br>';
+        div.innerHTML += '<span style="color:#ffffff"><img width="8" src="img/red.png"> Entre 61 y 350 km de profundidad</span><br>';
+        div.innerHTML += '<span style="color:#ffffff"><img width="8" src="img/blue.png"> Mayor o igual a 351 km de profundidad</span><br>';
+        
+        return div;
+      };
+      legend.addTo(map); 
+      var markers = [];
+      $("#btndatasismica").click(function(){      
+            var a = $("#latLnga").val();
+            var b = $("#latLngb").val();
+            var c = $("#latLngc").val();
+            var d = $("#latLngd").val();
+            a = a.substring(0,4+a.indexOf("."));
+            b = b.substring(0,4+b.indexOf("."));
+            c = c.substring(0,4+c.indexOf("."));
+            d = d.substring(0,4+d.indexOf("."));
+            rectangle.setLatLngs(
+              [[a, c],[b, c],[b, d],[a, d]]
+            );
+            
+            $("#latLnga").val(a);
+            $("#latLngb").val(b);
+            $("#latLngc").val(c);
+            $("#latLngd").val(d);
+
+            var e = $("input[name='datasismica']:checked").val();
+            var result;
+            var magnitud = $("#cbmagnitud").val();
+            magnitud = (magnitud!="")?parseInt(magnitud):0;
+            var profundidad = $("#txtprofundidad").val();
+            profundidad = (profundidad!="")?parseInt(profundidad):0;
+            
+            table.destroy();
+            table = $('#misdatossismicos').DataTable({
+              "responsive": "true",
+              "pagingType": "simple",  
+              "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_",
+                "sZeroRecords": "No se encontraron reportes sismicos para el mes seleccionado.",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Registros del _START_ al _END_ de un total de _TOTAL_ ",
+                "sInfoEmpty": "Registros del 0 al 0 de un total de 0 ",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                  "sFirst": "Primero",
+                  "sLast": "Último",
+                  "sNext": "Siguiente",
+                  "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+              },
+              ajax: {
+                url:'datos-sismicos/'+a+'/'+b+'/'+c+'/'+d+'/'+e+'/'+magnitud+'/'+profundidad,
+                //url:'data.json',
+                type:'POST',
+                dataSrc: 'prg_sismos',
+                dataType:'JSON',
+                beforeSend:function(){
+                  if(markers.length>0){
+                    markers.forEach(function(obj,i){
+                      map.removeLayer(obj);
+                    }); 
+                    markers = [];
+                  } 
+                }
+                
+              },columns: [
+                  { data: 'fecha', render:function ( data, type, row, meta ) {
+                    return row.fecha+" "+row.hora;}},
+                  { data: 'latitud', render:function ( data, type, row, meta ) {
+                    return row.latitud+", "+row.longitud;}},
+                  { data: 'profundidad',render:function ( data, type, row, meta ){ 
+                    var datos="mb:"+row.magnitud_mb+", mw:"+row.magnitud_mw+", ms:"+row.magnitud_ms+", prof:"+row.profundidad+"km, lat:"+row.latitud+", long:"+row.longitud;
+
+                    if(row.profundidad<60){
+                      var marker = L.marker([row.latitud, row.longitud], {icon: redIcon},{draggable:true}).bindPopup(datos);  
+                    }else if(row.profundidad>60 && row.profundidad<=350 ){
+                      var marker = L.marker([row.latitud, row.longitud], {icon: greenIcon},{draggable:true}).bindPopup(datos);  
+                    }else{
+                      var marker = L.marker([row.latitud, row.longitud], {icon: blueIcon},{draggable:true}).bindPopup(datos);  
+                    }
+                    markers.push(marker); 
+                    map.addLayer(marker);
+                    return row.profundidad;
+                  }},
+                  { data: 'magnitud_mb' },
+                  { data: 'magnitud_ms' },
+                  { data: 'magnitud_mw' }
+              ]
+            });
+
+      });
+});
 
 
 function showLatLngs(latlng){
@@ -551,8 +632,6 @@ function showLatLngs(latlng){
   $("#latLngc").val(latlng[0][0].lng.toFixed(3));
   $("#latLngd").val(latlng[0][2].lng.toFixed(3));
 }
-
-
  </script>
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/maps.js?v=82741074"></script>
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/modal.js?v=82741074"></script> 
