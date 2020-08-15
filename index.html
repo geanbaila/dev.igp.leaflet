@@ -29,7 +29,8 @@ IGP , portal , portada" />
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/semanticdatatables.min.js?v=50361749"></script>
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/sharethis.js?v=50361749"></script>
     <script type='text/javascript' src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/dependencies/date-uk.js?v=50361749"></script>
-    <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/48ef28da36.js?v=50361749"></script> <style> 
+    <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/48ef28da36.js?v=50361749"></script> 
+    <style> 
 .igp-btn{margin-bottom: 10px !important;} .fa-file-pdf{
   color: red;
   font-size: 18px;
@@ -387,6 +388,31 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
         scrollWheelZoom: false,
         layers: [WorldImagery,RoadsAndLabels],
     });
+
+    var greenIcon = L.icon({
+        iconUrl: 'green.png',
+        shadowUrl: 'green.png',
+        iconSize:     [16, 16],
+        shadowSize:   [16, 16],
+        iconAnchor:   [16, 16],
+        shadowAnchor: [16, 16]
+    });
+    var redIcon = L.icon({
+        iconUrl: 'red.png',
+        shadowUrl: 'red.png',
+        iconSize:     [16, 16],
+        shadowSize:   [16, 16],
+        iconAnchor:   [16, 16],
+        shadowAnchor: [16, 16]
+    });
+    var blueIcon = L.icon({
+        iconUrl: 'blue.png',
+        shadowUrl: 'blue.png',
+        iconSize:     [16, 16],
+        shadowSize:   [16, 16],
+        iconAnchor:   [16, 16],
+        shadowAnchor: [16, 16]
+    });
   
     var drawnItems = L.featureGroup();
     map.addLayer(drawnItems);
@@ -437,7 +463,12 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
       showLatLngs(latlng);
     });
  
+    var a = new L.marker([-3,-79], {icon: greenIcon});
+    map.addLayer(a); //.bindPopup("");  
+
     $("#btndatasismica").click(function(){
+       
+      /*
           var a = $("#latLnga").val();
           var b = $("#latLngb").val();
           var c = $("#latLngc").val();
@@ -461,6 +492,10 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
           magnitud = (magnitud!="")?parseInt(magnitud):0;
           var profundidad = $("#txtprofundidad").val();
           profundidad = (profundidad!="")?parseInt(profundidad):0;
+
+ 
+
+
           $.ajax({
             url:'datos-sismicos/'+a+'/'+b+'/'+c+'/'+d+'/'+e+'/'+magnitud+'/'+profundidad,
             type:'POST',
@@ -471,12 +506,24 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
             success:function(resultado){
               result = resultado;
             },complete:function(){
-              
+              var datos ="";
               var n=result.prg_sismos.length;
               if(n>0){
+                var markers = L.markerClusterGroup();
+                markers.clearLayers();
+
                 var html;
                 $(".datos-sismicos").html("");
                 $.each(result.prg_sismos,function(i,row){
+                  datos="mb:"+row.magnitud_mb+", mw:"+row.magnitud_mw+", ms:"+row.magnitud_ms+", prof:"+row.profundidad+"km, lat:"+row.latitud+", long:"+row.longitud;
+                  if(row.profundidad<60){
+                    L.marker([row.latitud, row.longitud], {icon: redIcon}).addTo(map).bindPopup(datos);  
+                  }else if(row.profundidad>60 && row.profundidad<=350 ){
+                    L.marker([row.latitud, row.longitud], {icon: greenIcon}).addTo(map).bindPopup(datos);  
+                  }else{
+                    L.marker([row.latitud, row.longitud], {icon: blueIcon}).addTo(map).bindPopup(datos);  
+                  }
+                  
                   html ="";
                   html+= "<tr>";
                   html+= "<td>" + row.fecha + " " + row.hora + "</td>";
@@ -492,7 +539,7 @@ href="https://www.gob.pe/8262-instituto-geofisico-del-peru-servicios-igp?token=5
                 $(".datos-sismicos").html("<tr align='center'><td colspan='6'><i>No se encontraron datos.</i></td></tr>");
               }
           }
-          });
+          });*/
 
     });
 
@@ -508,4 +555,6 @@ function showLatLngs(latlng){
 
  </script>
     <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/maps.js?v=82741074"></script>
-    <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/modal.js?v=82741074"></script> </body> </html>
+    <script type="text/javascript" src="https://www.igp.gob.pe/servicios/centro-sismologico-nacional/js/modal.js?v=82741074"></script> 
+
+  </body> </html>
